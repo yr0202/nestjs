@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { BoardsModule } from './boards.module';
 import { v1 as uuid} from 'uuid'; // v1 버전을 쓴다, 이름을 uuid로 한다
@@ -32,13 +32,20 @@ export class BoardsService {
     //find() 메소드를 사용함
     //find는 boards 배열에서 id랑 맞는 게시물을 찾기 위한 메서드
     getBoardById(id: string) :Board{
-        return this.boards.find( (board) => board.id === id);
+        const found = this.boards.find( (board) => board.id === id);
         // boards배열에서 board 하나를 가져오고 그 보드 하나에 아이디랑
         //파라미터로 들어온 id랑 같은걸 찾는다
         //화살표 함수 (board) => board.id === id는 콜백 함수로서 find() 메서드에 전달
         //여기서 board는 배열의 각 요소를 대표하는 변수
         //find() 메서드는 배열을 반복하면서 이 콜백 함수를 각 요소에 대해 호출하며,
         //id가 일치하는 첫 번째 요소를 찾으면 해당 요소를 반환합니다.
+        
+        if(!found){
+            throw new NotFoundException("Can't find Board with id");
+        }
+
+        return found; 
+
     }
 
     // filter() 메소드는 필터링 하는 메소드
