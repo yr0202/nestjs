@@ -50,7 +50,8 @@ export class BoardsService {
 
     // filter() 메소드는 필터링 하는 메소드
     deleteBoard(id: string):void {
-        this.boards = this.boards.filter((board) => board.id !== id);
+        const found = this.getBoardById(id);
+        this.boards = this.boards.filter((board) => board.id !== found.id);
     }
 
     updateBoardStatus(id:string, status:BoardStatus):Board{
