@@ -11,10 +11,27 @@ export class BoardRepository extends Repository<Board> {
         super(Board, dataSource.createEntityManager());
     }
     
+    async createBoard(createBoardDto:CreateBoardDto):Promise<Board>{
+        const {title, description} = createBoardDto;
+
+        const board = this.create({
+            title,
+            description,
+            status: BoardStatus.PUBLIC
+        })
+
+        await this.save(board);
+        return board;
+    }
+
     async getBoardById(id: number) {
         // return await this.findOne( id as any );
     	return await this.findOne( {where:{ id }} );
     }
+
+    // async deleteBoard(id: number){
+    //     return await this.delete(id);
+    // }
 }
 
 
