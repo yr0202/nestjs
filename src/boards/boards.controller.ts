@@ -10,10 +10,10 @@ export class BoardsController {
 
     constructor(private boardsService: BoardsService){}
 
-    // @Get('/')
-    // getAllBoard(): Board[]{ 
-    //     return this.boardsService.getAllBoards();
-    // }
+    @Get()
+    getAllBoard(): Promise<Board[]>{ 
+        return this.boardsService.getAllBoards();
+    }
 
     // @Post()
     // @UsePipes(ValidationPipe)
@@ -50,6 +50,14 @@ export class BoardsController {
     //     this.boardsService.deleteBoard(id);
     // }
 
+
+    @Patch('/:id/status')
+    updateBoardStatus(
+        @Param('id', ParseIntPipe) id:number,
+        @Body('status',BoardStatusValidationPipe) status:BoardStatus
+        ): Promise<Board> {
+            return this.boardsService.uadateBoardStatus(id, status);
+    }
     // @Patch('/:id/status')
     // updateBoardStatus(
     //     @Param('id') id:string,

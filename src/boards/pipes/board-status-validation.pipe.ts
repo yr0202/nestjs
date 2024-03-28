@@ -8,6 +8,9 @@ export class BoardStatusValidationPipe implements PipeTransform{
     ]
 
     transform(value:any, metadata:ArgumentMetadata){
+        if (value === undefined) {
+            throw new BadRequestException('Status value is missing');
+        }
         value = value.toUpperCase();
 
         if(!this.isStatusValid(value)){
