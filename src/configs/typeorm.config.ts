@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { Board } from "src/boards/board.entity";
 
 export const typeORMConfig : TypeOrmModuleOptions = {
     type: 'mysql',
@@ -6,8 +7,9 @@ export const typeORMConfig : TypeOrmModuleOptions = {
     port: 3306,
     username: 'root',
     password: 'sqldbfka9820@',
-    database : 'inflearn-board-project',
-    entities: [__dirname + '/../**/*.entity.{js,ts}'],
+    database : 'board_project',
+    autoLoadEntities: true,
+    entities: [Board],
     synchronize : true // 운영모드에서는 사용하지 말라?
 
 }
