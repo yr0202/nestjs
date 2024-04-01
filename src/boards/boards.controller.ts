@@ -3,7 +3,7 @@ import { BoardsService } from './boards.service';
 import { BoardStatus } from './board-status.enum.';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
-import { Board } from './board.entity';
+import { Board } from './entities/board.entity';
 
 @Controller('/boards')
 export class BoardsController {
@@ -34,16 +34,14 @@ export class BoardsController {
         return this.boardsService.getBoardById(id);
     }
 
-    
-
     // @Get('/:id')
     // getBoardById(@Param('id') id: string):Board{
     //     return this.boardsService.getBoardById(id);
     // }
 
     @Delete('/:id')
-    deleteBoard(@Param('id', ParseIntPipe)id):Promise<void>{
-        return this.boardsService.deleteBoard(id);
+    deleteBoard(@Param('id') id: string):Promise<void>{
+        return this.boardsService.deleteBoard(+id);
     }
     // @Delete('/:id')
     // deleteBoard(@Param('id') id:string): void{

@@ -5,7 +5,7 @@ import { v1 as uuid} from 'uuid'; // v1 버전을 쓴다, 이름을 uuid로 한�
 import { CreateBoardDto } from './dto/create-board.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardRepository } from './board.repository';
-import { Board } from './board.entity';
+import { Board } from './entities/board.entity';
 
 @Injectable()
 export class BoardsService {
@@ -50,7 +50,7 @@ export class BoardsService {
     }
 
     async getBoardById(id:number): Promise<Board> {
-        const found = await this.boardRepository.findOne({ where: { id } });
+        const found = await this.boardRepository.getBoardById(id);
 
         if(!found){
             throw new NotFoundException(`Cant't find Board with id &{id}`);

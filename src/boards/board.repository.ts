@@ -1,5 +1,5 @@
 import { DataSource, EntityRepository, Repository } from "typeorm";
-import { Board } from "./board.entity";
+import { Board } from "./entities/board.entity";
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { BoardStatus } from "./board-status.enum.";
 import { Injectable } from "@nestjs/common";
