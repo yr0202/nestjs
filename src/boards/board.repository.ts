@@ -3,6 +3,7 @@ import { Board } from "./entities/board.entity";
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { BoardStatus } from "./board-status.enum.";
 import { Injectable } from "@nestjs/common";
+import { User } from "src/auth/user.entity";
 
 
 @Injectable()
@@ -10,14 +11,15 @@ export class BoardRepository extends Repository<Board> {
     constructor(dataSource: DataSource) {
         super(Board, dataSource.createEntityManager());
     }
-    
-    async createBoard(createBoardDto:CreateBoardDto):Promise<Board>{
-        const {title, description} = createBoardDto;
+
+    async createBoard(createBoardDto: CreateBoardDto, user: User): Promise<Board> {
+        const { title, description } = createBoardDto;
 
         const board = this.create({
             title,
             description,
-            status: BoardStatus.PUBLIC
+            status: BoardStatus.PUBLIC,
+            user
         })
 
         await this.save(board);
@@ -26,7 +28,7 @@ export class BoardRepository extends Repository<Board> {
 
     async getBoardById(id: number) {
         // return await this.findOne( id as any );
-    	return await this.findOne( {where:{ id }} );
+        return await this.findOne({ where: { id } });
     }
 
     // async deleteBoard(id: number){
@@ -40,8 +42,8 @@ export class BoardRepository extends Repository<Board> {
 //     async createBoard(createBoardDto: CreateBoardDto) : Promise<Board> {
 //         const {title, description} = createBoardDto;
 
-//         const board = this.create({ 
-//             title, 
+//         const board = this.create({
+//             title,
 //             description,
 //             status: BoardStatus.PUBLIC,
 //         })
