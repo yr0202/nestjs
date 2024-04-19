@@ -1,9 +1,9 @@
 db: 
   host: 'localhost'
   username: 'root'
-  password: 'sqldbfka9820@'
+  password: 'password'
   synchronize: true
 
 
 jwt: 
-  secret: 'Secret1234'
+  secret: 'secretcode'
